@@ -1,4 +1,5 @@
 import React from "react";
+import ReactDOM from "react-dom";
 
 function display(text) {
     document.getElementById("textContent").innerHTML += text + "<br/>";
@@ -75,7 +76,7 @@ Les 3 possibilités pour passer une fonction en paramètre
 function jouerPierre() {
     jouer(PIERRE, variableinconue)
 }
-
+/*
 document.getElementById("pierre")
     .addEventListener("click", jouerPierre)
 
@@ -86,3 +87,18 @@ document.getElementById("feuille")
 
 document.getElementById("ciseau")
     .addEventListener("click", () => jouer(CISEAU))
+    */
+
+const App = () => {
+    return (
+        <>
+            <h1>Exo 1</h1>
+            <p id="textContent"> </p>
+            <button id="pierre">Pierre</button>
+            <button id="feuille">Feuille</button>
+            <button id="ciseau">Ciseau</button>
+        </>
+    );
+}
+
+ReactDOM.render(<App/>, document.getElementById("react-app"));
