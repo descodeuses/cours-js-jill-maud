@@ -1,20 +1,4 @@
-/*
-D'autres manières de représenter les différents coups possible.
-# propriétés d'un objet
-```
-let coupsPossibles = {
-    pierre: "pierre",
-    feuille: "feuille",
-    ciseau: "ciseau"
-}
-```
-Le coup pierre sera représenté par `coupsPossible.pierre`.
-# Tableau
-```
-listcoupsPossibles = ["pierre", "feuille", "ciseau"];
-```
-Le coup pierre sera représenté par listcoupsPossibles[0] : pas très lisible dans le code.
-*/
+import React from "react";
 
 function display(text) {
     document.getElementById("textContent").innerHTML += text + "<br/>";
@@ -89,7 +73,7 @@ function jouer(coup) {
 Les 3 possibilités pour passer une fonction en paramètre
 */
 function jouerPierre() {
-    jouer(PIERRE)
+    jouer(PIERRE, variableinconue)
 }
 
 document.getElementById("pierre")
