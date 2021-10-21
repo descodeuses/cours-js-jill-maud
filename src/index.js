@@ -90,6 +90,10 @@ document.getElementById("ciseau")
     */
 
 const App = () => {
+    const [score, setScore] = React.useState(0);
+
+    console.log("Nouveau rendu avec score " +score);
+
     return (
         <>
             <h1>Exo 1</h1>
@@ -97,6 +101,8 @@ const App = () => {
             <button id="pierre">Pierre</button>
             <button id="feuille">Feuille</button>
             <button id="ciseau">Ciseau</button>
+            <p>{score}</p>
+            <button onClick={() => setScore(score + 1)}>Score +1</button>
         </>
     );
 }
