@@ -37,7 +37,29 @@ function mancheGagnante(coup) {
     }
 }
 
+const ScoreBoard = (props) => {
+    let mainStyle = {
+        backgroundColor: "#FFFFFF",
+        position: "absolute",
+        top: 0,
+        right: 0,
+        border: 0,
+        padding: "20px 35px",
+        fontStyle: "normal",
+        fontWeight: "bold",
+        fontSize: "64.248px",
+        lineHeight: "83px",
+        fontFamily: "Josefin Sans",
+    };
 
+    return <div style={mainStyle}>
+        <span style={{color: "#2818DF"}}>
+            {props.scoreJoueuse}
+            </span> - <span style={{color: "#DA1717"}}>
+                {props.scoreOrdi}
+            </span>
+    </div>;
+}
 
 const App = () => {
     const [scoreJoueuse, setScoreJoueuse] = React.useState(0);
@@ -63,6 +85,7 @@ const App = () => {
 
     let blockVictoire;
     let gameIsOver = false;
+
     if (scoreJoueuse == MANCHES_VICTORIEUSES) {
         blockVictoire = "Vous avez gagné !";
         gameIsOver = true;
@@ -71,19 +94,22 @@ const App = () => {
         gameIsOver = true;
     }
 
+    let mainDivStyle = {
+        backgroundColor: "#D3CFFF",
+        height: "100%"
+    };
+
     return (
-        <>
-            <h1>Exo 1</h1>
+        <div style={mainDivStyle}>
+            <ScoreBoard scoreJoueuse={scoreJoueuse} scoreOrdi={scoreOrdi} />
             <p>{text}</p>
-            <p>Score joueuse : {scoreJoueuse}</p>
-            <p>Score ordi : {scoreOrdi}</p>
             {!gameIsOver ? <>
                 <button onClick={() => jouer(PIERRE)}>Pierre</button>
                 <button onClick={() => jouer(FEUILLE)}>Feuille</button>
                 <button onClick={() => jouer(CISEAU)}>Ciseau</button>
             </> : <p>{blockVictoire}</p>
             }
-        </>
+        </div>
     );
 }
 
