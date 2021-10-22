@@ -1,10 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-function display(text) {
-    document.getElementById("textContent").innerHTML += text + "<br/>";
-}
-
 const PIERRE = "p";
 const FEUILLE = "f";
 const CISEAU = "c";
@@ -42,67 +38,51 @@ function mancheGagnante(coup) {
 }
 
 
-let scoreJoueuse = 0;
-let scoreOrdi = 0
-
-
-// i = le compteur de manche
-// la boucle continue tant qu'aucun des joueurs n'a atteint 3
-function jouer(coup) {
-    let resultatManche = mancheGagnante(coup)
-    
-    if (resultatManche === true) {
-        // la joueuse a gagné
-        scoreJoueuse++;
-        display("Manche gagnée");
-    } else if (resultatManche === false) {
-        scoreOrdi++;
-        display("Manche perdue")
-    } else {
-        display("Manche nulle")
-    }
-
-    if (scoreJoueuse === MANCHES_VICTORIEUSES) {
-        display("La joueuse a gagné")
-    } else if (scoreOrdi === MANCHES_VICTORIEUSES) {
-        display("L'ordinateur a gagné")
-    }    
-}
-
-
-/*
-Les 3 possibilités pour passer une fonction en paramètre
-*/
-function jouerPierre() {
-    jouer(PIERRE, variableinconue)
-}
-/*
-document.getElementById("pierre")
-    .addEventListener("click", jouerPierre)
-
-document.getElementById("feuille")
-    .addEventListener("click", function() {
-        jouer(FEUILLE)
-    })
-
-document.getElementById("ciseau")
-    .addEventListener("click", () => jouer(CISEAU))
-    */
 
 const App = () => {
-    const [score, setScore] = React.useState(0);
+    const [scoreJoueuse, setScoreJoueuse] = React.useState(0);
+    const [scoreOrdi, setScoreOrdi] = React.useState(0);
+    const [text, setText] = React.useState("");
 
-    console.log("Nouveau rendu avec score " +score);
+    function jouer(coup) {
+        let resultatManche = mancheGagnante(coup);
+
+        if (resultatManche === true) {
+            // la joueuse a gagné
+            let nouveauScore = scoreJoueuse + 1
+            setScoreJoueuse(nouveauScore);
+            setText("Manche gagnée");
+        } else if (resultatManche === false) {
+            let nouveauScore = scoreOrdi + 1;
+            setScoreOrdi(nouveauScore);
+            setText("Manche perdue")
+        } else {
+            setText("Manche nulle")
+        }
+    }
+
+    let blockVictoire;
+    let gameIsOver = false;
+    if (scoreJoueuse == MANCHES_VICTORIEUSES) {
+        blockVictoire = "Vous avez gagné !";
+        gameIsOver = true;
+    } else if (scoreOrdi == MANCHES_VICTORIEUSES) {
+        blockVictoire = "L'ordi a gagné !";
+        gameIsOver = true;
+    }
 
     return (
         <>
             <h1>Exo 1</h1>
-            <p id="textContent"> </p>
-            <button id="pierre">Pierre</button>
-            <button id="feuille">Feuille</button>
-            <button id="ciseau">Ciseau</button>
-            <p>{score}</p>
-            <button onClick={() => setScore(score + 1)}>Score +1</button>
+            <p>{text}</p>
+            <p>Score joueuse : {scoreJoueuse}</p>
+            <p>Score ordi : {scoreOrdi}</p>
+            {!gameIsOver ? <>
+                <button onClick={() => jouer(PIERRE)}>Pierre</button>
+                <button onClick={() => jouer(FEUILLE)}>Feuille</button>
+                <button onClick={() => jouer(CISEAU)}>Ciseau</button>
+            </> : <p>{blockVictoire}</p>
+            }
         </>
     );
 }
