@@ -1,9 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import SelectStep from "./SelectStep";
 
-const PIERRE = "p";
-const FEUILLE = "f";
-const CISEAU = "c";
+export const PIERRE = "p";
+export const FEUILLE = "f";
+export const CISEAU = "c";
 const MANCHES_VICTORIEUSES = 3;
 
 
@@ -45,11 +46,8 @@ const ScoreBoard = (props) => {
         right: 0,
         border: 0,
         padding: "20px 35px",
-        fontStyle: "normal",
-        fontWeight: "bold",
         fontSize: "64.248px",
         lineHeight: "83px",
-        fontFamily: "Josefin Sans",
     };
 
     return <div style={mainStyle}>
@@ -103,12 +101,7 @@ const App = () => {
         <div style={mainDivStyle}>
             <ScoreBoard scoreJoueuse={scoreJoueuse} scoreOrdi={scoreOrdi} />
             {text}
-            {gameIsOver ? blockVictoire : <>
-                <button onClick={() => jouer(PIERRE)}>Pierre</button>
-                <button onClick={() => jouer(FEUILLE)}>Feuille</button>
-                <button onClick={() => jouer(CISEAU)}>Ciseau</button>
-            </>
-            }
+            {gameIsOver ? blockVictoire : <SelectStep jouer={jouer} />}
         </div>
     );
 }
