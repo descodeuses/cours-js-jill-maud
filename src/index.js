@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import SelectStep from "./SelectStep";
 import ScoreBoard from "./ScoreBoard";
+import RoundResult from "./RoundResult";
 
 export const PIERRE = "p";
 export const FEUILLE = "f";
