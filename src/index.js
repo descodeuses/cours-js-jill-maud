@@ -102,12 +102,12 @@ const App = () => {
     return (
         <div style={mainDivStyle}>
             <ScoreBoard scoreJoueuse={scoreJoueuse} scoreOrdi={scoreOrdi} />
-            <p>{text}</p>
-            {!gameIsOver ? <>
+            {text}
+            {gameIsOver ? blockVictoire : <>
                 <button onClick={() => jouer(PIERRE)}>Pierre</button>
                 <button onClick={() => jouer(FEUILLE)}>Feuille</button>
                 <button onClick={() => jouer(CISEAU)}>Ciseau</button>
-            </> : <p>{blockVictoire}</p>
+            </>
             }
         </div>
     );
