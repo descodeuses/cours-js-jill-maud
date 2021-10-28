@@ -24,7 +24,12 @@ const Button = (props) => {
         [CISEAU]: "public/ciseaux.svg"
     }
 
-    return <button onClick={() => jouer(coup)} style={buttonStyle}>
+    const handleClick = (e) => {
+        e.stopPropagation();
+        jouer(coup);
+    }
+
+    return <button onClick={handleClick} style={buttonStyle}>
         <img style={imageStyle} src={imageSrc[coup]} />
     </button>
 }

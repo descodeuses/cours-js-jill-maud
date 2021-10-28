@@ -9,6 +9,12 @@ export const FEUILLE = "f";
 export const CISEAU = "c";
 const MANCHES_VICTORIEUSES = 3;
 
+export const GAME_STATES = {
+    WAITING: 0,
+    WIN: 1,
+    LOSE: 2,
+    TIE: 3
+}
 
 function mancheGagnante(coup) {
     let coupOrdinateur;
@@ -41,16 +47,15 @@ function mancheGagnante(coup) {
 }
 
 const App = () => {
-    const GAME_STATES = {
-        WAITING: 0,
-        WIN: 1,
-        LOSE: 2,
-        TIE: 3
-    }
-
     const [scoreJoueuse, setScoreJoueuse] = React.useState(0);
     const [scoreOrdi, setScoreOrdi] = React.useState(0);
     const [gameState, setGameState] = React.useState(GAME_STATES.WAITING);
+
+    function resetRound () {
+        if (gameState !== GAME_STATES.WAITING) {
+            setGameState(GAME_STATES.WAITING);
+        }
+    }
 
     function jouer(coup) {
         let resultatManche = mancheGagnante(coup);
@@ -90,7 +95,7 @@ const App = () => {
         <RoundResult gameState={gameState}/>;
 
     return (
-        <div style={mainDivStyle}>
+        <div style={mainDivStyle} onClick={resetRound}>
             <ScoreBoard scoreJoueuse={scoreJoueuse} scoreOrdi={scoreOrdi} />
             {gameIsOver ? blockVictoire : blockGame}
         </div>
