@@ -40,9 +40,16 @@ function mancheGagnante(coup) {
 }
 
 const App = () => {
+    const GAME_STATES = {
+        WAITING: 0,
+        WIN: 1,
+        LOSE: 2,
+        TIE: 3
+    }
+
     const [scoreJoueuse, setScoreJoueuse] = React.useState(0);
     const [scoreOrdi, setScoreOrdi] = React.useState(0);
-    const [text, setText] = React.useState("");
+    const [gameState, setGameState] = React.useState(GAME_STATES.WAITING);
 
     function jouer(coup) {
         let resultatManche = mancheGagnante(coup);
@@ -51,13 +58,13 @@ const App = () => {
             // la joueuse a gagné
             let nouveauScore = scoreJoueuse + 1
             setScoreJoueuse(nouveauScore);
-            setText("Manche gagnée");
+            setGameState(GAME_STATES.WIN);
         } else if (resultatManche === false) {
             let nouveauScore = scoreOrdi + 1;
             setScoreOrdi(nouveauScore);
-            setText("Manche perdue")
+            setGameState(GAME_STATES.LOSE)
         } else {
-            setText("Manche nulle")
+            setGameState(GAME_STATES.TIE)
         }
     }
 
@@ -77,11 +84,14 @@ const App = () => {
         height: "100%"
     };
 
+    const blockGame = (gameState === GAME_STATES.WAITING) ?
+        <SelectStep jouer={jouer} /> :
+        <RoundResult gameState={gameState}/>;
+
     return (
         <div style={mainDivStyle}>
             <ScoreBoard scoreJoueuse={scoreJoueuse} scoreOrdi={scoreOrdi} />
-            {text}
-            {gameIsOver ? blockVictoire : <SelectStep jouer={jouer} />}
+            {gameIsOver ? blockVictoire : blockGame}
         </div>
     );
 }
