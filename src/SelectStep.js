@@ -29,6 +29,7 @@ const Button = (props) => {
                 width: 224px;
                 height: 224px;
                 margin: 0 30px;
+                transition: all 0.2s;
             }
 
             button:hover {
@@ -65,7 +66,7 @@ const SelectStep = (props) => {
 
     const buttonContainerStyle = {
         display: "flex",
-        height: "242px",
+        height: "252px",
         alignItems: "center"
     }
 
