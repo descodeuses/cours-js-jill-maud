@@ -13,10 +13,10 @@ const RoundResult = (props) => {
         textMessage = "Perdu !"
         color = "#DA1717"
     } else if (gameState === GAME_STATES.END_WIN) {
-        textMessage = "Bravo ! Vous avez gagné."
+        textMessage = "Bravo ! Partie gagnée."
         color = "#2818DF";
     } else if (gameState === GAME_STATES.END_LOSE) {
-        textMessage = "Désolé ! Vous avez perdu."
+        textMessage = "Désolé ! Partie perdue."
         color = "#DA1717"
     } else {
         textMessage = "Égalité !"
