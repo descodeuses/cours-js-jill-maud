@@ -33,9 +33,9 @@ const Button = (props) => {
 
             button:hover {
                 border: 10px solid rgba(40, 24, 223, 0.5);
-                width: 242px;
-                height: 242px;
-                margin: 0 21px;
+                width: 252px;
+                height: 252px;
+                margin: 0 16px;
             }
         `}
         </style>
@@ -65,7 +65,8 @@ const SelectStep = (props) => {
 
     const buttonContainerStyle = {
         display: "flex",
-        height: "242px"
+        height: "242px",
+        alignItems: "center"
     }
 
     return  <div style={containerStyle}>
