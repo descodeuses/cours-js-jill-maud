@@ -4,15 +4,6 @@ import { PIERRE, FEUILLE, CISEAU, } from "./index";
 const Button = (props) => {
     const {coup, jouer} = props;
 
-    const buttonStyle = {
-        border: 0,
-        backgroundColor: "",
-        borderRadius: 242,
-        width: 224,
-        height: 224,
-        margin: "0 30px"
-    }
-
     const imageStyle = {
         width: "100%",
         height: "auto"
@@ -29,9 +20,29 @@ const Button = (props) => {
         jouer(coup);
     }
 
-    return <button onClick={handleClick} style={buttonStyle}>
-        <img style={imageStyle} src={imageSrc[coup]} />
-    </button>
+    return <>
+        <style jsx>{`
+            button {
+                border: 0;
+                background-color: #FFF;
+                border-radius: 242px;
+                width: 224px;
+                height: 224px;
+                margin: 0 30px;
+            }
+
+            button:hover {
+                border: 10px solid rgba(40, 24, 223, 0.5);
+                width: 242px;
+                height: 242px;
+                margin: 0 21px;
+            }
+        `}
+        </style>
+        <button onClick={handleClick}>
+            <img style={imageStyle} src={imageSrc[coup]} />
+        </button>
+    </>;
 }
 
 const SelectStep = (props) => {
@@ -54,6 +65,7 @@ const SelectStep = (props) => {
 
     const buttonContainerStyle = {
         display: "flex",
+        height: "242px"
     }
 
     return  <div style={containerStyle}>
