@@ -13,7 +13,9 @@ export const GAME_STATES = {
     WAITING: 0,
     WIN: 1,
     LOSE: 2,
-    TIE: 3
+    TIE: 3,
+    END_WIN: 4,
+    END_LOSE: 5
 }
 
 function mancheGagnante(coup) {
@@ -52,6 +54,12 @@ const App = () => {
     const [gameState, setGameState] = React.useState(GAME_STATES.WAITING);
 
     function resetRound () {
+        if (gameState === GAME_STATES.END_LOSE
+            || gameState === GAME_STATES.END_WIN) {
+            setScoreJoueuse(0)
+            setScoreOrdi(0)
+        }
+
         if (gameState !== GAME_STATES.WAITING) {
             setGameState(GAME_STATES.WAITING);
         }
@@ -62,27 +70,25 @@ const App = () => {
 
         if (resultatManche === true) {
             // la joueuse a gagné
-            let nouveauScore = scoreJoueuse + 1
+            let nouveauScore = scoreJoueuse + 1;
             setScoreJoueuse(nouveauScore);
-            setGameState(GAME_STATES.WIN);
+            if (nouveauScore === MANCHES_VICTORIEUSES) {
+                setGameState(GAME_STATES.END_WIN)
+            } else {
+                setGameState(GAME_STATES.WIN);
+            }
         } else if (resultatManche === false) {
             let nouveauScore = scoreOrdi + 1;
             setScoreOrdi(nouveauScore);
-            setGameState(GAME_STATES.LOSE)
+
+            if (nouveauScore === MANCHES_VICTORIEUSES) {
+                setGameState(GAME_STATES.END_LOSE)
+            } else {
+                setGameState(GAME_STATES.LOSE)
+            }
         } else {
             setGameState(GAME_STATES.TIE)
         }
-    }
-
-    let blockVictoire;
-    let gameIsOver = false;
-
-    if (scoreJoueuse == MANCHES_VICTORIEUSES) {
-        blockVictoire = "Vous avez gagné !";
-        gameIsOver = true;
-    } else if (scoreOrdi == MANCHES_VICTORIEUSES) {
-        blockVictoire = "L'ordi a gagné !";
-        gameIsOver = true;
     }
 
     let mainDivStyle = {
@@ -92,12 +98,12 @@ const App = () => {
 
     const blockGame = (gameState === GAME_STATES.WAITING) ?
         <SelectStep jouer={jouer} /> :
-        <RoundResult gameState={gameState}/>;
+        <RoundResult gameState={gameState} />;
 
     return (
         <div style={mainDivStyle} onClick={resetRound}>
             <ScoreBoard scoreJoueuse={scoreJoueuse} scoreOrdi={scoreOrdi} />
-            {gameIsOver ? blockVictoire : blockGame}
+            {blockGame}
         </div>
     );
 }
