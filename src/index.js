@@ -91,17 +91,19 @@ const App = () => {
         }
     }
 
-    let mainDivStyle = {
-        backgroundColor: "#D3CFFF",
-        height: "100%"
-    };
-
     const blockGame = (gameState === GAME_STATES.WAITING) ?
         <SelectStep jouer={jouer} /> :
         <RoundResult gameState={gameState} />;
 
     return (
-        <div style={mainDivStyle} onClick={resetRound}>
+        <div onClick={resetRound}>
+            <style jsx>{`
+                div {
+                    background-color: #D3CFFF;
+                    height: 100%;
+                }
+            `}
+            </style>
             <ScoreBoard scoreJoueuse={scoreJoueuse} scoreOrdi={scoreOrdi} />
             {blockGame}
         </div>
