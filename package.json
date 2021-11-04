@@ -2,7 +2,8 @@
   "scripts": {
     "dev": "webpack --mode development",
     "dev:watch": "webpack --mode development --watch",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "server": "nodemon server.js"
   },
   "dependencies": {
     "@babel/core": "^7.15.8",
@@ -10,6 +11,8 @@
     "@babel/preset-react": "^7.14.5",
     "babel": "^6.23.0",
     "babel-loader": "^8.2.3",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.14",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "styled-jsx": "^4.0.1",
