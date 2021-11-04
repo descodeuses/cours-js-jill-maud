@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import SelectStep from "./SelectStep";
 import ScoreBoard from "./ScoreBoard";
 import RoundResult from "./RoundResult";
+import axios from "axios";
 
 export const PIERRE = "p";
 export const FEUILLE = "f";
@@ -16,36 +17,6 @@ export const GAME_STATES = {
     TIE: 3,
     END_WIN: 4,
     END_LOSE: 5
-}
-
-function mancheGagnante(coup) {
-    let coupOrdinateur;
-    let hasard = Math.floor(Math.random() * 3);
-
-    switch (hasard) {
-        case 0:
-            coupOrdinateur = PIERRE;
-            break;
-        case 1:
-            coupOrdinateur = FEUILLE;
-            break;
-        case 2:
-            coupOrdinateur = CISEAU;
-            break;
-    }
-
-    if ((coup === FEUILLE && coupOrdinateur === PIERRE) ||
-        (coup === CISEAU && coupOrdinateur === FEUILLE) ||
-        (coup === PIERRE && coupOrdinateur === CISEAU)) {
-        /**
-         * coup - coupOrdinateur === 1 || coup - coupOrdinateur == -2
-         */
-        return true;
-    } else if (coup === coupOrdinateur) {
-        return null;
-    } else  {
-        return false;
-    }
 }
 
 const App = () => {
@@ -66,7 +37,7 @@ const App = () => {
     }
 
     function jouer(coup) {
-        let resultatManche = mancheGagnante(coup);
+        let resultatManche = axios.post("/api/jouer", coup);
 
         if (resultatManche === true) {
             // la joueuse a gagné
