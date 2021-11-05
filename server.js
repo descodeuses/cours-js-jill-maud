@@ -1,6 +1,13 @@
 const express = require("express");
+const bodyParser = require("body-parser");
 
 const app = express();
+
+const PIERRE = "p";
+const FEUILLE = "f";
+const CISEAU = "c";
+
+app.use(bodyParser.text());
 
 app.use("/public", express.static(__dirname + "/public"));
 app.use("/dist", express.static(__dirname + "/dist"));
@@ -29,10 +36,7 @@ app.post('/api/jouer', (req, res) => {
     if ((coup === FEUILLE && coupOrdinateur === PIERRE) ||
         (coup === CISEAU && coupOrdinateur === FEUILLE) ||
         (coup === PIERRE && coupOrdinateur === CISEAU)) {
-        /**
-         * coup - coupOrdinateur === 1 || coup - coupOrdinateur == -2
-         */
-        res.send("GAGNE");
+        return res.send("GAGNE");
     } else if (coup === coupOrdinateur) {
         return res.send("NUL");
     } else  {
