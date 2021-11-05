@@ -39,7 +39,7 @@ const App = () => {
     }
 
     async function jouer(coup) {
-        let response = await axios.post("/api/jouer", coup);
+        let response = await axios.post("/api/jouer", { coup });
         let resultatManche = response.data;
         console.log(response.data);
 

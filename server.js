@@ -7,7 +7,8 @@ const PIERRE = "p";
 const FEUILLE = "f";
 const CISEAU = "c";
 
-app.use(bodyParser.text());
+app.use(bodyParser.urlencoded());
+app.use(bodyParser.json());
 
 app.use("/public", express.static(__dirname + "/public"));
 app.use("/dist", express.static(__dirname + "/dist"));
@@ -17,7 +18,7 @@ app.get('/', (req, res) => {
 });
 
 app.post('/api/jouer', (req, res) => {
-    let coup = req.body;
+    let coup = req.body.coup;
     let coupOrdinateur;
     let hasard = Math.floor(Math.random() * 3);
 
