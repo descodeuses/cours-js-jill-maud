@@ -1,3 +1,5 @@
+import "@babel/polyfill";
+
 import React from "react";
 import ReactDOM from "react-dom";
 import SelectStep from "./SelectStep";
@@ -36,10 +38,12 @@ const App = () => {
         }
     }
 
-    function jouer(coup) {
-        let resultatManche = axios.post("/api/jouer", coup);
+    async function jouer(coup) {
+        let response = await axios.post("/api/jouer", coup);
+        let resultatManche = response.data;
+        console.log(response.data);
 
-        if (resultatManche === true) {
+        if (resultatManche === "GAGNE") {
             // la joueuse a gagné
             let nouveauScore = scoreJoueuse + 1;
             setScoreJoueuse(nouveauScore);
@@ -48,7 +52,7 @@ const App = () => {
             } else {
                 setGameState(GAME_STATES.WIN);
             }
-        } else if (resultatManche === false) {
+        } else if (resultatManche === "PERDU") {
             let nouveauScore = scoreOrdi + 1;
             setScoreOrdi(nouveauScore);
 
@@ -82,3 +86,6 @@ const App = () => {
 }
 
 ReactDOM.render(<App/>, document.getElementById("react-app"));
+
+
+jouer();
